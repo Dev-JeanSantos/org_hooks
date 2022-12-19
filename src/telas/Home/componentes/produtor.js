@@ -1,14 +1,25 @@
-import React from "react";
-import { Image, Text, View, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import { Image, TouchableOpacity, Text, View, StyleSheet } from "react-native";
+import Estrelas from "../../../componentes/Estrelas";
 
 export default function Produtor({ nome, imagem, distancia, estrelas }) {
-    return <View style={estilos.cartao}>
-        <Image source={imagem} accessibilityLabel={nome} style={estilos.imagem}/>
-        <View  style={estilos.informacoes}>
-            <Text  style={estilos.nome}>{nome}</Text>
+    const [selecionado, setSelecionado] = useState(false)
+    return <TouchableOpacity style={estilos.cartao}
+    onPress={() =>setSelecionado(!selecionado)}
+    >
+        <Image source={imagem} accessibilityLabel={nome} style={estilos.imagem} />
+        <View style={estilos.informacoes}>
+            <View>
+                <Text style={estilos.nome}>{nome}</Text>
+                <Estrelas
+                    quantidade={estrelas}
+                    editavel={selecionado}
+                    grande={selecionado}
+                />
+            </View>
             <Text style={estilos.distancia}>{distancia}</Text>
         </View>
-    </View>
+    </TouchableOpacity>
 }
 
 const estilos = StyleSheet.create({
@@ -19,7 +30,7 @@ const estilos = StyleSheet.create({
         borderRadius: 6,
         flexDirection: "row",
         elevation: 4,
-    }, 
+    },
     imagem: {
         width: 48,
         height: 48,
@@ -28,7 +39,7 @@ const estilos = StyleSheet.create({
         marginLeft: 16,
     },
     informacoes: {
-        flex:   1,
+        flex: 1,
         flexDirection: "row",
         justifyContent: "space-between",
         marginLeft: 8,
@@ -44,4 +55,4 @@ const estilos = StyleSheet.create({
         fontSize: 12,
         lineHeight: 19,
     }
-  }) 
+}) 
